@@ -1,0 +1,15 @@
+---
+db:
+    user: widgetuser
+    password: "duhdua"
+    name: widget_production
+    primary:
+        host: frankfurt.example.com
+        port: 5432
+    replica:
+        host: london.example.com
+        port: 5432
+    rabbitmq:
+    host: johannesburg.example.com
+    port:5672
+# This file shows one way of defining variables for production

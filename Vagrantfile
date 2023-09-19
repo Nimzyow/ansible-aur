@@ -9,33 +9,26 @@
 VAGRANTFILE_API_VERSION = "2"
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
-  # The most common configuration options are documented and commented below.
-  # For a complete reference, please see the online documentation at
-  # https://docs.vagrantup.com.
+  # Use the same key for each machine
+  config.ssh.insert_key = false
 
-  # Every Vagrant development environment requires a box. You can search for
-  # boxes at https://vagrantcloud.com/search.
-  config.vm.box = "ubuntu/focal64"
-  config.vm.hostname = "testserver"
-  config.vm.network "forwarded_port",
-    id: "ssh", guest: 22, host: 2202, host_ip: "127.0.0.1", auto_correct: false
-  config.vm.network "forwarded_port",
-    id: "http", guest: 80, host: 8080, host_ip: "127.0.0.1"
-  config.vm.network "forwarded_port",
-    id: "https", guest: 443, host: 8443, host_ip: "127.0.0.1"
+  config.vm.define "vagrant1" do |vagrant1|
+    vagrant1.vm.box = "ubuntu/focal64"
+    vagrant1.vm.network "forwarded_port", guest:80, host: 8080
+    vagrant1.vm.network "forwarded_port", guest:443, host:8443
+  end
   
-  # disable updating guest additions
-  if Vagrant.has_plugin?("vagrant-vbguest")
-    config.vbguest.auto_update = false
+  config.vm.define "vagrant2" do |vagrant2|
+    vagrant2.vm.box = "ubuntu/focal64"
+    vagrant2.vm.network "forwarded_port", guest:80, host: 8081
+    vagrant2.vm.network "forwarded_port", guest:443, host:8444
   end
-
-  config.vm.provider "virtualbox" do |virtualbox|
-    virtualbox.name = "ch03"
+  
+  config.vm.define "vagrant3" do |vagrant3|
+    vagrant3.vm.box = "ubuntu/focal64"
+    vagrant3.vm.network "forwarded_port", guest:80, host: 8082
+    vagrant3.vm.network "forwarded_port", guest:443, host:8445
   end
-
-  # config.vm.network :forwarded_port, host: 8000, guest: 80
-  # config.vm.network :forwarded_port, host: 8443, guest: 443
-  # config.vm.network "private_network", ip: "192.168.33.10"
 
   # Disable automatic box update checking. If you disable this, then
   # boxes will only be checked for updates when the user runs

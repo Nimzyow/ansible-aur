@@ -1,0 +1,11 @@
+---
+db:
+  user: widgetuser
+  password: "adnuasjd"
+  name: widget_production
+  primary:
+    host: franfurt.example.com
+    port: 5432
+  replica:
+    host: london.example.com
+    port: 5432

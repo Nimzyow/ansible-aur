@@ -1,0 +1,4 @@
+---
+rabbitmq:
+  host: johannesburge.example.com
+  port: 6379
